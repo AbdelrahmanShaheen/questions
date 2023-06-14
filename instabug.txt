@@ -1,0 +1,75 @@
+Please read the following instructions very carefully, copy them and the following 6 questions and save them locally onto your computer:
+
+To start the clock of this part,  please send a POST request on this endpoint: challenge.instabug-dev.com/api/web/test/start with the following body:
+
+{
+   "email": "the email you used for registration to the internship",
+   "password": "the password we sent you in the challenge invitation email"
+}
+
+It's very important to do this step before you proceed to solve the next questions as you will receive an authentication token that you will have to include in any submissions. You will be given 24 hours after you complete this step to solve the next 6 questions.
+
+Testing:
+------------
+If you wish to try a query or know information about the database like showing tables/columns/indexes/etc, you can send a POST request on this endpoint: challenge.instabug-dev.com/api/web/database/execute, with the following body:
+{
+    "data": {
+        "email": "the email you used for the internship registration",
+        "auth_token": "the token you received after sending the test/start request",
+        "query": "your escaped mysql query that you wish to try"
+    }
+}
+
+This endpoint is designed to reject queries that would take a long time to execute, but it doesn't mean that they query is wrong and you can submit it as a solution normally (it will either get a partial score or be accepted depending on the problem).
+
+General notes for the following questions:
+-------------------------------------------------------------------
+1. You can send a POST request using a tool like postman or using curl directly from your terminal.
+
+2. To submit a problem, send a POST request on the mentioned endpoint in each question with the following body:
+{
+    "data": {
+        "email": "the email you used for the internship registration",
+        "auth_token": "the token you received from sending the test/start request",
+        "query": "your escaped mysql query"
+    }
+}
+
+3. Please note that this challenge only supports MySQL. Also note that you will need to escape all special characters in your query to have a valid JSON object. You can this tool https://www.freeformatter.com/json-escape.html where you can paste your query and click escape and use the output.
+
+4. With each wrong submission you lose 1% of the total problem score with a maximum of 10% loss per problem, so be careful to submit solutions that you trust.
+
+5. Be sure to use https and not http while sending requests.
+
+---------------------------------------------------------------------------------------------------
+P1. Given 3 tables, students(id, name) , courses(id, name) , grades(id, course_id, student_id, grade), find the top 100 students based on their average grades sorted descendingly by the average grade and in case multiple students have the same average grade, sort them lexicographically in ascending order by their names. Your query should output a table with the following columns (name, average_grade).Submission endpoint: challenge.instabug-dev.com/api/web/database/submit/p1
+
+
+
+P2. For the same tables in P1, for each student, get all the courses that he/she is enrolled in along with the grade he/she scored for each course. Order the result by the student name in ascending order and if there is a tie, break it with the course name in ascending order and if there is a tie break it with the grade in ascending order. The final result should have 3 columns with names (name, course, grade). Submission endpoint: challenge.instabug-dev.com/api/web/database/submit/p2
+
+
+
+P3. For the same tables in P1, get the name of the most popular course (the one where the most students are enrolled) and if there is a tie, get the course that's lexicographically the smallest. Submission endpoint: challenge.instabug-dev.com/api/web/database/submit/p3
+
+
+P4. Given a table called "bugs" with the following columns (id, token, title, category, device, reported_at, created_at, updated_at). Select all distinct bug categories. Submission endpoint: challenge.instabug-dev.com/api/web/database/submit/p4
+
+
+P5. For the same table in P4, find how many bugs were created on "2019-03-01" or later. Your query should produce a table with one column called "count". This problem is graded partially, 10% on correctness (your query gets the correct count) and 90% on performance (your query makes use of available indexes). Submission endpoint: challenge.instabug-dev.com/api/web/database/submit/p5
+
+
+P6. For the same table in P4, find the title of the bug with token = "token660" and reported_at on "2020-08-30". This problem is graded partially, 10% on correctness (your query gets the correct count) and 90% on performance (your query makes use of available indexes). Submission endpoint: challenge.instabug-dev.com/api/web/database/submit/p6
+
+
+solution :
+select count(created_at) from bugs where  id > 0 and created_at between '2019-03-01' and sysdate();
+------------------
+
+{
+    "data": {
+        "email": "shehabgad2@gmail.com",
+        "auth_token": "4f09b4d09447761debf5e7c192db083a",
+        "query": ""
+    }
+}
